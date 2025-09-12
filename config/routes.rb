@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   # Contact messages
   resources :contact_messages, only: [:new, :create, :index, :show, :destroy]
 
-  # Static pages
-  get "about", to: "pages#about"
-  get "faq", to: "pages#faq"
-  get "contact", to: "contact_messages#new"
+  #About Us
+  resources :abouts, only: [:index], path: "about_us"
+
+  #FAQ
+  resources :faqs, only: [:index], path: "FAQs"
 
   root "pages#home"
 end
