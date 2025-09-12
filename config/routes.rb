@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   # Contact messages
-  resources :contact_messages, only: [:new, :create]
+  resources :contact_messages, only: [:new, :create, :index, :show, :destroy]
 
   # Static pages
   get "about", to: "pages#about"
