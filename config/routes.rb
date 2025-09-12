@@ -1,19 +1,29 @@
 Rails.application.routes.draw do
   devise_for :users
-  
-  # Rooms & bookings
-  resources :rooms do
-    resources :bookings, only: [:new, :create, :index]
+
+  # Rooms & bookings (guest side)
+  resources :rooms, only: [:index, :show] do
+    resources :bookings, only: [:new, :create]
   end
 
-  # Contact messages
-  resources :contact_messages, only: [:new, :create, :index, :show, :destroy]
+  #Guests's booking
+  resources :bookings, only: [:index, :show]
 
-  #About Us
+  # Admin only
+  namespace :admin do
+    resources :rooms
+    resources :bookings, only: [:index, :show]
+    resources :contact_messages, only: [:index, :show, :destroy]
+  end
+
+  # Contact messages (guest side)
+  resources :contact_messages, only: [:new, :create]
+
+  # About Us
   resources :abouts, only: [:index], path: "about_us"
 
-  #FAQ
-  resources :faqs, only: [:index], path: "FAQs"
+  # FAQ
+  resources :faqs, only: [:index], path: "faqs"
 
   root "pages#home"
 end
