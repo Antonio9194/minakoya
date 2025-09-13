@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   end
 
   #Guests's booking
-  resources :bookings, only: [:index, :show]
+  resources :guests do
+    resources :bookings, only: [:index, :show]
+  end
 
   # Admin only
   namespace :admin do
