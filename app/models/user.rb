@@ -4,5 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum role: { guest: "guest", admin: "admin" }, _default: "guest"       
+  enum role: { guest: "guest", admin: "admin" }, _default: "guest"
+
+  has_many :bookings, dependent: :destroy
+  has_many :contact_messages, dependent: :destroy
 end
