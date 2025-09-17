@@ -6,10 +6,11 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
-  #Guests's booking
-  resources :guests do
+  #Guests' booking
+  resources :guests, only: [:show] do
     resources :bookings, only: [:index, :show]
   end
+
 
   # Admin only
   namespace :admin do

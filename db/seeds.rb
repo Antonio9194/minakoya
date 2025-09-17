@@ -9,6 +9,14 @@ Room.destroy_all
 User.destroy_all
 
 User.create!(
+  email: "anto.vinciguerra@hotmail.it",
+  password: "password",
+  role: "admin",
+  first_name: "Antonio",
+  last_name: "Vinciguerra"
+)
+
+User.create!(
   email: "anto.vinciguerra@hotmail.com",
   password: "password",
   role: "guest",
