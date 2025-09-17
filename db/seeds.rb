@@ -8,6 +8,16 @@ ContactMessage.destroy_all
 Room.destroy_all
 User.destroy_all
 
+User.create!(
+  email: "anto.vinciguerra@hotmail.com",
+  password: "password",
+  role: "guest",
+  first_name: "Antonio",
+  last_name: "Vinciguerra"
+)
+
+puts "Created Antonio’s account"
+
 # Create 20 guest users
 guests = 20.times.map do
   User.create!(
