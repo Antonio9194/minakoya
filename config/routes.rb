@@ -7,8 +7,7 @@ Rails.application.routes.draw do
   end
 
   #Guests' booking
-  resources :guests do
-
+  resources :guests, only: [:show] do
     resources :bookings, only: [:index, :show]
   end
 
