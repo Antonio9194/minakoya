@@ -22,11 +22,8 @@ Rails.application.routes.draw do
   # Contact messages (guest side)
   resources :contact_messages, only: [:new, :create]
 
-  # About Us
-  resources :abouts, only: [:index], path: "about_us"
-
-  # FAQ
-  resources :faqs, only: [:index], path: "faqs"
+  get "about_us", to: "pages#about_us"
+  get "faqs", to: "pages#faqs"
 
   root "pages#home"
 end
