@@ -1,2 +1,52 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
+<!-- Carousel with room photos -->
+<div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <% ["bathtub.jpg", "bedroom.jpg", "toilet.jpg"].each_with_index do |photo, index| %>
+      <div class="carousel-item <%= 'active' if index == 0 %>">
+        <%= image_tag photo, class: "d-block w-100", alt: "Room photo #{index + 1}" %>
+      </div>
+    <% end %>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<hr>
+<!-- Room info -->
+<div class="room-info">
+  <h1><%= @room.name %></h1>
+  <p><%= @room.description %></p>
+  <p>Price per night: <%= number_to_currency(@room.price_per_night) %></p>
+  <p>Size: <%= @room.size %> sq ft</p>
+  <p>Beds: <%= @room.beds %></p>
+  <p>Capacity: <%= @room.capacity %></p>
+  <p>Amenities: <%= @room.amenities %></p>
+</div>
+<hr>
+<!-- List of amenities -->
+<ul class="amenities-list">
+  <% @room.amenities.split(', ').each do |amenity| %>
+    <li><%= amenity %></li>
+  <% end %>
+</ul>
+<hr>
+<!-- Booking calendar -->
+<div class="booking-calendar">
+  <h2>Check Availability</h2>
+  <%= simple_form_for [@room, @room.bookings.build], url: room_bookings_path(@room) do |f| %>
+    <%= f.input :start_date, as: :date, html5: true, input_html: { min: Date.today } %>
+    <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
+    <%= f.button :submit, "Check Availability", class: "btn btn-primary" %>
+  <% end %>
+</div>
+<hr>
+<!-- Pitch text -->
+<div class="pitch-text">
+  <h2>Why Book With Us?</h2>
+  <p>Experience unparalleled comfort and luxury in our meticulously designed rooms. Whether you're here for business or leisure, our amenities and services are tailored to meet your every need. Book now to enjoy exclusive offers and a memorable stay!</p>
+</div>
