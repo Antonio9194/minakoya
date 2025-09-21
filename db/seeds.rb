@@ -71,7 +71,6 @@ puts "Created #{Room.count} rooms"
     name: Faker::Name.name,
     email: Faker::Internet.email,
     message: Faker::Lorem.paragraph(sentence_count: 3),
-    status: %w[confirmed pending closed].sample,
     user: guests.sample
   )
 end
