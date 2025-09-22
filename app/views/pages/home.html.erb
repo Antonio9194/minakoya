@@ -1,21 +1,36 @@
 <%= video_tag "background.mp4", autoplay: true, loop: true, muted: true, playsinline: true, class: "background-video" %>
+
 <div class="d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
   <div>
     <h1 class="minakoya" style="color: white; font-size: 6rem;">Minakoya</h1>
     <hr class="line-above">
     <p style="color: white;">Your Home Away From Home</p>
   </div>
-  <div class="col-sm-8 my-3 position-relative" style="width: 80%;">
+      <div class="col-sm-8 my-3 position-relative" style="width: 80%;">
     <%= form_with url: rooms_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
             class: "form-control",
-            placeholder: "Type a keyword",
             style: "border-radius: 50px; height: 80px;"
         %>
-      <%= submit_tag "Search", name: "",
-          class: "btn rounded-pill position-absolute d-flex justify-content-center align-items-center"
-      %>
+        <%= date_field_tag :check_in, params[:check_in], class: "search-input-in search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
+        <div class="calendar-icon-in">
+          <%= image_tag "checkinout.png" %>
+        </div>
+        
+        <%= date_field_tag :check_out, params[:check_out], class: "search-input-out search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
+        <div class="calendar-icon-out">
+          <%= image_tag "checkinout.png" %>
+        </div>
+
+        <%= number_field_tag :guests, params[:guests], class: "search-input-guests search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center", min: 1, placeholder: "Guests" %>
+<div class="calendar-icon-guests">
+  <%= image_tag "guests.png" %>
+</div>
+        
+        
+      <%= submit_tag "Search", name: "", class: " search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
     <% end %>
   </div>
+
 </div>
