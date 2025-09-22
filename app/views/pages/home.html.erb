@@ -1,12 +1,11 @@
 <%= video_tag "background.mp4", autoplay: true, loop: true, muted: true, playsinline: true, class: "background-video" %>
-
 <div class="d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
   <div>
     <h1 class="minakoya" style="color: white; font-size: 6rem;">Minakoya</h1>
     <hr class="line-above">
     <p style="color: white;">Your Home Away From Home</p>
   </div>
-      <div class="col-sm-8 my-3 position-relative" style="width: 80%;">
+  <div class="col-sm-8 my-3 position-relative" style="width: 80%;">
     <%= form_with url: rooms_path, method: :get, class: "d-flex" do %>
       <%= text_field_tag :query,
             params[:query],
@@ -14,9 +13,9 @@
             placeholder: "Type a keyword",
             style: "border-radius: 50px; height: 80px;"
         %>
-      <%= submit_tag "Search", name: "", class: "btn rounded-pill position-absolute d-flex justify-content-center align-items-center",
-          style: "right: 5px; top: 50%; transform: translateY(-50%); width: 120px; height: 60px; color: white; background-color: black; border: 1px solid #000; margin-right: 12px;" %>
+      <%= submit_tag "Search", name: "",
+          class: "btn rounded-pill position-absolute d-flex justify-content-center align-items-center"
+      %>
     <% end %>
   </div>
-
 </div>

@@ -10,11 +10,42 @@
 }
 
 .minakoya {
-  font-family: "Yu Gothic", "Meiryo", "MS PGothic", "Hiragino Kaku Gothic Pro", sans-serif;
+  font-family:
+    "Yu Gothic", "Meiryo", "MS PGothic", "Hiragino Kaku Gothic Pro", sans-serif;
 }
 .line-above {
   border-top: 2px solid white;
   width: 100%;
   padding-top: 10px;
-  display: inline-block; 
+  display: inline-block;
+}
+
+.search-form-container {
+  width: 80%;
+  position: relative;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-form {
+  display: flex;
+}
+
+.search-input {
+  border-radius: 50px;
+  height: 80px;
+  flex-grow: 1; /* so it expands to fill space */
+  padding: 0 20px;
+}
+
+.search-btn {
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 120px;
+  height: 60px;
+  color: white;
+  background-color: black;
+  border: 1px solid #000;
+  margin-right: 12px;
 }
