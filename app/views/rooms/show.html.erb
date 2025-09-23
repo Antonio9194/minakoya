@@ -1,52 +1,83 @@
-<!-- Carousel with room photos -->
-<div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <% ["bathtub.jpg", "bedroom.jpg", "toilet.jpg"].each_with_index do |photo, index| %>
-      <div class="carousel-item <%= 'active' if index == 0 %>">
-        <%= image_tag photo, class: "d-block w-100", alt: "Room photo #{index + 1}" %>
-      </div>
-    <% end %>
+<div class="container my-5">
+  <!-- Carousel with room photos -->
+  <div id="roomCarousel" class="carousel slide carousel-fade mb-4 rounded" data-bs-ride="carousel">
+    <div class="carousel-inner rounded-5">
+      <% ["bathtub.jpg", "bedroom.jpg", "toilet.jpg"].each_with_index do |photo, index| %>
+        <div class="carousel-item <%= 'active' if index == 0 %>">
+          <%= image_tag photo, class: "d-block w-100 rounded-5", alt: "Room photo #{index + 1}", style: "height: 400px; object-fit: cover;" %>
+        </div>
+      <% end %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-<hr>
-<!-- Room info -->
-<div class="room-info">
-  <h1><%= @room.name %></h1>
-  <p><%= @room.description %></p>
-  <p>Price per night: <%= number_to_currency(@room.price_per_night) %></p>
-  <p>Size: <%= @room.size %> sq ft</p>
-  <p>Beds: <%= @room.beds %></p>
-  <p>Capacity: <%= @room.capacity %></p>
-  <p>Amenities: <%= @room.amenities %></p>
-</div>
-<hr>
-<!-- List of amenities -->
-<ul class="amenities-list">
-  <% @room.amenities.split(', ').each do |amenity| %>
-    <li><%= amenity %></li>
-  <% end %>
-</ul>
-<hr>
-<!-- Booking calendar -->
-<div class="booking-calendar">
-  <h2>Check Availability</h2>
-  <%= simple_form_for [@room, @room.bookings.build], url: room_bookings_path(@room) do |f| %>
-    <%= f.input :start_date, as: :date, html5: true, input_html: { min: Date.today } %>
-    <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
-    <%= f.button :submit, "Check Availability", class: "btn btn-primary" %>
-  <% end %>
-</div>
-<hr>
-<!-- Pitch text -->
-<div class="pitch-text">
-  <h2>Why Book With Us?</h2>
-  <p>Experience unparalleled comfort and luxury in our meticulously designed rooms. Whether you're here for business or leisure, our amenities and services are tailored to meet your every need. Book now to enjoy exclusive offers and a memorable stay!</p>
+  <!-- Room info -->
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-4 rounded-5 shadow-sm">
+        <div class="card-body">
+          <h1 class="card-title"><%= @room.name %></h1>
+          <p class="card-text text-muted"><%= @room.description %></p>
+          <div class="row">
+            <div class="col-md-6">
+              <h5 class="text-primary">¥<%= number_with_delimiter(@room.price_per_night) %></h5>
+              <small class="text-muted">per night</small>
+            </div>
+            <div class="col-md-6">
+              <p class="mb-1"><strong>Size:</strong> <%= @room.size %> sq ft</p>
+              <p class="mb-1"><strong>Beds:</strong> <%= @room.beds %></p>
+              <p class="mb-0"><strong>Capacity:</strong> <%= @room.capacity %> guests</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- List of amenities -->
+      <div class="card mb-4 rounded-5 shadow-sm">
+        <div class="card-header">
+          <h5 class="mb-0">Amenities</h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <% @room.amenities.split(',').each do |amenity| %>
+              <div class="col-md-6 mb-2">
+                <i class="fas fa-check text-success me-2"></i><%= amenity.strip %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Booking calendar -->
+    <div class="col-lg-4">
+      <div class="card position-sticky rounded-5 shadow-sm" style="top: 20px;">
+        <div class="card-header">
+          <h5 class="mb-0">Check Availability</h5>
+        </div>
+        <div class="card-body">
+          <%= simple_form_for [@room, @room.bookings.build], url: room_bookings_path(@room) do |f| %>
+            <%= f.input :start_date, as: :date, html5: true, input_html: { min: Date.today } %>
+            <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
+            <%= f.button :submit, "Check Availability", class: "btn btn-primary w-100 rounded-4" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Pitch text -->
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="card rounded-5 shadow-sm">
+        <div class="card-body text-center">
+          <h2 class="card-title">Why Book With Us?</h2>
+          <p class="card-text">Experience unparalleled comfort and luxury in our meticulously designed rooms. Whether you're here for business or leisure, our amenities and services are tailored to meet your every need. Book now to enjoy exclusive offers and a memorable stay!</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
