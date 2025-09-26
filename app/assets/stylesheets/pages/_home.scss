@@ -12,12 +12,14 @@
 .minakoya {
   font-family:
     "Yu Gothic", "Meiryo", "MS PGothic", "Hiragino Kaku Gothic Pro", sans-serif;
+  margin-bottom: 30px;
 }
 .line-above {
   border-top: 2px solid white;
   width: 100%;
   padding-top: 10px;
   display: inline-block;
+  margin: 0;
 }
 
 .search-btn {
@@ -28,7 +30,7 @@
   height: 60px;
   color: white;
   background-color: red;
-  margin-right: 12px;
+  margin-right: 33px;
 }
 
 .search-input-in {
@@ -55,7 +57,6 @@
   margin-right: 550px;
 }
 
-
 .search-input-in,
 .search-input-out {
   opacity: 0;
@@ -74,9 +75,9 @@
 .calendar-icon-in {
   position: absolute;
   top: 50%;
-  right: 950px;       
+  right: 980px;
   transform: translateY(-50%);
-  width: 60px;        /* big circle */
+  width: 60px; /* big circle */
   height: 60px;
   background-color: beige;
   border: 1px solid black;
@@ -88,8 +89,8 @@
 }
 
 .calendar-icon-in img {
-  width: 28px;       /* icon smaller than circle */
-  height: 28px;
+  width: 22px; /* icon smaller than circle */
+  height: 22px;
   object-fit: contain;
 }
 
@@ -97,7 +98,7 @@
 .calendar-icon-out {
   position: absolute;
   top: 50%;
-  right: 650px;       /* keep your existing margin */
+  right: 720px; /* keep your existing margin */
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
@@ -111,7 +112,7 @@
 }
 
 .calendar-icon-out img {
-  width: 28px;
+  width: 22px;
   height: 28px;
   object-fit: contain;
 }
@@ -136,4 +137,28 @@
   width: 28px;
   height: 28px;
   object-fit: contain;
+}
+
+.base-calendar {
+  position: absolute;
+  top: -17px;
+  margin-top: 4px;
+  width: 98%;
+  background-color: white;
+  height: 86px;
+  border: 1px solid black;
+  border-radius: 50px;
+}
+
+.search-input-guests {
+  
+ right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 180px;
+  height: 60px;
+  color: white;
+  background-color: beige;
+  border: 1px solid black;
+  margin-right: 550px;
 }
