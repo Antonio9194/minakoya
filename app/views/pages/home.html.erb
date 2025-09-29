@@ -5,30 +5,59 @@
     <hr class="line-above">
     <p style="color: white;">Your Home Away From Home</p>
   </div>
-  <div class="col-sm-8 my-3 position-relative" style="width: 80%;">
-    <div class="base-calendar"></div>
-    <%= form_with url: rooms_path, method: :get, class: "d-flex" do %>
-      <%= date_field_tag :check_in,
-          params.dig(:search, :check_in),
-          class: "search-input-in search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
-      <div class="calendar-icon-in">
-        <%= image_tag "checkinout.png" %>
+
+  <%= form_with url: rooms_path, method: :get, class: "form d-flex" do %>
+    <div class="d-flex justify-content-between align-items-center search-bar">
+
+      <!-- Check-In -->
+      <div class="search-item" id="check-in-btn" data-controller="booking-form">
+        <div class="icon-circle">
+          <%= image_tag "checkinout.png",
+              data: { action: "click->booking-form#open" } %>
+        </div>
+        <div class="text">
+          <div class="label">Check-In</div>
+          <div class="value" data-booking-form-target="value">
+            <%= params.dig(:search, :check_in) %>
+          </div>
+          <%= date_field_tag :check_in,
+              params.dig(:search, :check_in),
+              class: "d-none",
+              data: { booking_form_target: "input", action: "change->booking-form#updateValue" } %>
+        </div>
       </div>
-      <%= date_field_tag :check_out,
-          params.dig(:search, :check_out),
-          class: "search-input-out search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
-      <div class="calendar-icon-out">
-        <%= image_tag "checkinout.png" %>
+
+      <!-- Check-Out -->
+      <div class="search-item" id="check-out-btn" data-controller="booking-form">
+        <div class="icon-circle">
+          <%= image_tag "checkinout.png",
+              data: { action: "click->booking-form#open" } %>
+        </div>
+        <div class="text">
+          <div class="label">Check-Out</div>
+          <div class="value" data-booking-form-target="value">
+            <%= params.dig(:search, :check_out) %>
+          </div>
+          <%= date_field_tag :check_out,
+              params.dig(:search, :check_out),
+              class: "d-none",
+              data: { booking_form_target: "input", action: "change->booking-form#updateValue" } %>
+        </div>
       </div>
-      <%= number_field_tag :guests,
-          params.dig(:search, :guests),
-          min: 1,
-          placeholder: "Guests",
-          class: "search-input-guests rounded-pill d-flex justify-content-center align-items-center" %>
-      <div class="calendar-icon-guests">
-        <%= image_tag "guests.png" %>
+
+      <!-- Guests -->
+      <div class="search-item" id="guests-btn">
+        <div class="icon-circle">
+          <%= image_tag "guests.png" %>
+        </div>
+        <div class="text">
+          <div class="label">Guests</div>
+          <div class="value">1</div>
+        </div>
       </div>
-      <%= submit_tag "Search", name: "", class: " search-btn rounded-pill position-absolute d-flex justify-content-center align-items-center" %>
-    <% end %>
-  </div>
+
+      <%= submit_tag "Search", class: "search-btn" %>
+
+    </div>
+  <% end %>
 </div>
