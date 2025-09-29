@@ -2,13 +2,22 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="booking-form"
 export default class extends Controller {
-  static targets = ["input", "value"]
+  static targets = ["calendar", "checkInValue", "checkOutValue"]
 
-    open() {
-    this.inputTarget.classList.toggle("d-none")
+  open(event) {
+    this.currentInput = event.currentTarget.dataset.type
+    this.calendarTarget.classList.toggle("d-none")
   }
 
-  updateValue() {
-    this.valueTarget.textContent = this.inputTarget.value
+  updateValue(event) {
+    const date = event.currentTarget.dataset.day
+
+    if (this.currentInput === "check_in") {
+      this.checkInValueTarget.textContent = date
+    } else if (this.currentInput === "check_out") {
+      this.checkOutValueTarget.textContent = date
+    }
+
+    this.calendarTarget.classList.add("d-none") 
   }
 }
