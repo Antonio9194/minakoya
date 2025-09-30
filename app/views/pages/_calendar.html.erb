@@ -1,0 +1,59 @@
+<!-- Check-Out -->
+      <div class="search-item" id="check-out-btn" data-action="click->booking-form#open" data-type="check_out">
+        <div class="icon-circle">
+          <%= image_tag "checkinout.png" %>
+        </div>
+        <div class="text">
+          <div class="label">Check-Out</div>
+          <div class="value" data-booking-form-target="checkOutValue">
+            <%= params.dig(:search, :check_out) %>
+          </div>
+        </div>
+      </div>
+      <%= hidden_field_tag :check_in, params.dig(:search, :check_in), data: { booking_form_target: "checkInInput" } %>
+      <%= hidden_field_tag :check_out, params.dig(:search, :check_out), data: { booking_form_target: "checkOutInput" } %>
+      <!-- Guests -->
+      <div class="search-item" id="guests-btn">
+        <div class="icon-circle">
+          <%= image_tag "guests.png" %>
+        </div>
+        <div class="text">
+          <div class="label">Guests</div>
+          <div class="value">1</div>
+        </div>
+      </div>
+      <%= submit_tag "Search", class: "search-btn" %>
+    </div>
+    <!-- Calendar -->
+    <div id="calendar-container" class="d-none" data-booking-form-target="calendar">
+      <% (0..11).each do |i| %>
+        <% month = Date.today.beginning_of_month + i.months %>
+        <div class="month-block" style="margin-bottom: 40px;">
+          <h4 style="font-weight: 600; text-align: center; margin-bottom: 10px;">
+            <%= month.strftime("%B %Y") %>
+          </h4>
+          <!-- Weekdays -->
+          <div class="weekdays" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; font-weight: 500; margin-bottom: 5px; color: #777;">
+            <% Date::ABBR_DAYNAMES.each do |day| %>
+              <div><%= day %></div>
+            <% end %>
+          </div>
+          <!-- Days -->
+          <div class="days-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 5px;">
+            <% first_wday = month.beginning_of_month.wday %>
+            <% last_day = month.end_of_month.day %>
+            <% first_wday.times do %>
+              <div></div>
+            <% end %>
+            <% (1..last_day).each do |day| %>
+              <div class="day" 
+                   data-day="<%= month.strftime('%Y-%m-') + day.to_s.rjust(2,'0') %>"
+                   data-action="click->booking-form#updateValue"
+                style="padding: 5px; cursor: pointer; border-radius: 4px;">
+                <%= day %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
