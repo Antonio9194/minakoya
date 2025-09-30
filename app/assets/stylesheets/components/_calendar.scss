@@ -1,0 +1,95 @@
+#calendar-container {
+  margin-top: 20px;
+  margin-left: 200px;
+  width: 800px;
+  height: 380px;
+  background-color: white;
+  border-radius: 50px;
+  padding: 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* remove scroll */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Header with arrows */
+.calendar-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.calendar-header button {
+  background-color: white; /* red */
+  color: black;
+  border: 1px solid red;
+  margin-top: 30px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.calendar-header button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Optional: make the month label look nicer */
+.calendar-header span {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.calendar-header span {
+  font-weight: 600;
+}
+
+/* Two months side by side */
+.calendar-grid {
+  display: flex;
+  width: 100%;
+  flex: 1; /* take remaining vertical space */
+  gap: 10px;
+  justify-content: space-between;
+}
+
+/* Each month block */
+.month-block {
+  width: 48%; /* two months side by side with gap */
+  height: 100%;
+  overflow: hidden;
+}
+
+.weekdays {
+  margin-bottom: 5px;
+}
+
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+  text-align: center;
+}
+
+.day {
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.day:hover {
+  background-color: #f0f0f0;
+}

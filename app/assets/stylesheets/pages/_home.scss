@@ -101,14 +101,14 @@
   cursor: pointer;
 }
 
-#calendar-container {
+#guests-container {
   margin-top: 20px;
   margin-left: 311px;
   display: flex;
-  flex-direction: column; /* stack months vertically */
+  flex-direction: column;
   width: 600px;
-  height: 500px;
-  overflow-y: auto;      /* vertical scroll */
+  height: 300px;
+  overflow-y: auto;
   background-color: white;
   border-radius: 20px;
   padding: 10px;
