@@ -1,3 +1,10 @@
 <div id="guests-container" class="d-none" data-guests-target="numberOfGuests">
-  <p>hallo</p>
+  <div class="guests-modal">
+    <h3>Guests</h3>
+    <div class="guests-counter">
+      <button type="button" data-action="click->guests#decrease">-</button>
+      <span data-guests-target="count">1</span>
+      <button type="button" data-action="click->guests#increase">+</button>
+    </div>
+  </div>
 </div>

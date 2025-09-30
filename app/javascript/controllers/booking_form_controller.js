@@ -8,8 +8,7 @@ export default class extends Controller {
     "checkOutValue",
     "checkInInput",
     "checkOutInput",
-    "monthsWrapper",   // new
-    "monthLabel"       // new
+    "monthsWrapper"
   ]
 
   connect() {
