@@ -40,9 +40,12 @@
         </div>
         <div class="text">
           <div class="label">Guests</div>
-          <div class="value">1</div>
+          <div class="value" data-guests-target="guestsValue">
+            <%= params.dig(:search, :guests)%>
+          </div>
         </div>
       </div>
+      <%= hidden_field_tag :guests, params.dig(:search, :guests), data: {guests_target: "guestsInput"} %>
       <%= submit_tag "Search", class: "search-btn" %>
     </div>
       <%= render "calendar" %>

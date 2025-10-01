@@ -2,7 +2,7 @@ class RoomsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
   def index
     @rooms = Room.all
-
+    
     # Guest count 
     if search_params[:guests].present?
       @rooms = @rooms.where("capacity >= ?", search_params[:guests].to_i)

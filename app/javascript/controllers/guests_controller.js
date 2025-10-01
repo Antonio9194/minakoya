@@ -2,10 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="guests"
 export default class extends Controller {
-  static targets = ["numberOfGuests", "count"] 
+  static targets = ["numberOfGuests", "count", "guestsValue", "guestsInput"]
 
   connect() {
-    this.guestCount = 1
+    this.guestCount = parseInt(this.guestsInputTarget.value || 1, 10)
     this.updateDisplay()
   }
 
@@ -26,6 +26,12 @@ export default class extends Controller {
   updateDisplay() {
     if (this.hasCountTarget) {
       this.countTarget.textContent = this.guestCount
+    }
+    if (this.hasGuestsValueTarget) {
+      this.guestsValueTarget.textContent = this.guestCount
+    }
+    if (this.hasGuestsInputTarget) {
+      this.guestsInputTarget.value = this.guestCount
     }
   }
 }
