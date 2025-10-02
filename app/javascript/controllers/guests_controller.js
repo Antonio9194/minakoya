@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="guests"
 export default class extends Controller {
   static targets = ["numberOfGuests", "count", "guestsValue", "guestsInput"]
 
