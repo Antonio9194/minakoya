@@ -3,7 +3,7 @@ class RoomsController < ApplicationController
   def index
     @rooms = Room.all
 
-    # Guest count 
+    # Guest count
     if search_params[:guests].present?
       @rooms = @rooms.where("capacity >= ?", search_params[:guests].to_i)
     end
@@ -22,6 +22,7 @@ class RoomsController < ApplicationController
   end
   def show
     set_room
+    @booking = Booking.new
   end
 
   private
