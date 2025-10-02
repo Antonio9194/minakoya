@@ -1,5 +1,4 @@
 class Room < ApplicationRecord
-
   has_many :bookings
 
   validates :name, presence: true
@@ -25,4 +24,14 @@ class Room < ApplicationRecord
     message: "must be more than 0"
   }
   validates :amenities, presence: true
+
+  def booked_dates
+    bookings.upcoming.map do |booking|
+      {
+        from: booking.start_date.to_s,
+        to: (booking.end_date - 1).to_s
+      }
+    end
+  end
+
 end
