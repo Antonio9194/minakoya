@@ -38,7 +38,7 @@
         </div>
       </div>
       <!-- List of amenities -->
-      <div class="card mb-4 rounded-5 shadow-sm">
+      <div class="card mb-4 rounded-5 shadow-sm" style="overflow: hidden">
         <div class="card-header">
           <h5 class="mb-0">Amenities</h5>
         </div>
@@ -55,15 +55,16 @@
     </div>
     <!-- Booking calendar -->
     <div class="col-lg-4">
-      <div class="card position-sticky rounded-5 shadow-sm" style="top: 20px;">
+      <div class="card position-sticky rounded-5 shadow-sm" style="top: 20px; overflow: hidden">
         <div class="card-header">
-          <h5 class="mb-0">Check Availability</h5>
+          <h5 class="mb-0">Make a booking</h5>
         </div>
         <div class="card-body">
-          <%= simple_form_for [@room, @room.bookings.build], url: room_bookings_path(@room) do |f| %>
-            <%= f.input :start_date, as: :date, html5: true, input_html: { min: Date.today } %>
-            <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
-            <%= f.button :submit, "Check Availability", class: "btn btn-primary w-100 rounded-4" %>
+          <%= simple_form_for [@room, @booking], method: :post, url: room_bookings_path(@room) do |f| %>
+            <%= f.input :start_date, as: :string, label: "Specify the blackout duration",
+              input_html: { data: {controller: "datepicker", datepicker_current_bookings_value: @room.booked_dates} } %>
+            <%# <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
+            <%= f.button :submit, "Book this room", class: "btn btn-primary w-100 rounded-4" %>
           <% end %>
         </div>
       </div>

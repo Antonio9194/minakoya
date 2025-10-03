@@ -1,9 +1,9 @@
 class RoomsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_room, only: [:show]
   def index
     @rooms = Room.all
     
-   # Availability
     if search_params[:check_in].present? && search_params[:check_out].present?
       check_in = Date.parse(search_params[:check_in])
       check_out = Date.parse(search_params[:check_out])
@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
     end
   end
   def show
-    set_room
+    @booking = Booking.new
   end
 
   private
