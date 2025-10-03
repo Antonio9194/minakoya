@@ -1,14 +1,9 @@
 class RoomsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_room, only: [:show]
   def index
     @rooms = Room.all
-
-    # Guest count 
-    if search_params[:guests].present?
-      @rooms = @rooms.where("capacity >= ?", search_params[:guests].to_i)
-    end
-
-    # Availability
+    
     if search_params[:check_in].present? && search_params[:check_out].present?
       check_in = Date.parse(search_params[:check_in])
       check_out = Date.parse(search_params[:check_out])
@@ -19,9 +14,18 @@ class RoomsController < ApplicationController
       # Exclude those rooms
       @rooms = @rooms.where.not(id: booked_room_ids)
     end
+
+    # Guest count
+    if search_params[:guests].present?
+      room_capacity = @rooms.map(&:capacity).sum
+      @rooms = room_capacity >= search_params[:guests].to_i ? @rooms : []
+    end
+    if @rooms.empty?
+      redirect_to root_path, alert: "No rooms available for your dates"
+    end
   end
   def show
-    set_room
+    @booking = Booking.new
   end
 
   private
