@@ -64,7 +64,6 @@
             <%= f.input :start_date, as: :string, label: "Specify the blackout duration",
               input_html: { data: {controller: "datepicker", datepicker_current_bookings_value: @room.booked_dates} } %>
             <%# <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
             <%= f.button :submit, "Book this room", class: "btn btn-primary w-100 rounded-4" %>
           <% end %>
         </div>

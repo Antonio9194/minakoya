@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[index show]
-  before_action :set_room, only: %i[show]
+  skip_before_action :authenticate_user!, only: [:index, :show]
+  before_action :set_room, only: [:show]
   def index
     @rooms = Room.all
 
