@@ -103,3 +103,10 @@
 .in-range {
   background-color: #cce5ff;
 }
+
+.past {
+  pointer-events: none;
+  opacity: 0.3;
+  color: #999;
+  text-decoration: line-through;
+}

@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-
 export default class extends Controller {
   static targets = [
     "calendar",
@@ -15,56 +14,73 @@ export default class extends Controller {
     this.currentIndex = 0
     this.datesSelected = [] // store chosen dates
     this.showMonths()
+    this.markPastDays()     // new: mark past days visually on load
   }
 
   open() {
     this.calendarTarget.classList.toggle("d-none")
   }
 
-updateValue(event) {
-  const date = event.currentTarget.dataset.day
-  const clickedEl = event.currentTarget
-
-  // clear highlights if 2 dates already selected
-  if (this.datesSelected.length >= 2) {
-    this.datesSelected = []
-    this.checkInValueTarget.textContent = ""
-    this.checkOutValueTarget.textContent = ""
-    this.checkInInputTarget.value = ""
-    this.checkOutInputTarget.value = ""
-
-    // remove all highlights
-    this.calendarTarget.querySelectorAll(".selected-date, .in-range").forEach(el => {
-      el.classList.remove("selected-date", "in-range")
-    })
-  }
-
-  // add new selection
-  this.datesSelected.push(date)
-
-  // always highlight clicked date
-  clickedEl.classList.add("selected-date")
-
-  if (this.datesSelected.length === 1) {
-    this.checkInValueTarget.textContent = date
-    this.checkInInputTarget.value = date
-  } else if (this.datesSelected.length === 2) {
-    this.checkOutValueTarget.textContent = date
-    this.checkOutInputTarget.value = date
-
-    // highlight range between check-in and check-out
-    const [start, end] = this.datesSelected.sort()
+  // --- mark past days ---
+  markPastDays() {
+    const today = new Date().toISOString().split("T")[0]
     this.calendarTarget.querySelectorAll("[data-day]").forEach(el => {
-      const d = el.dataset.day
-      if (d > start && d < end) {
-        el.classList.add("in-range")
+      if (el.dataset.day < today) {
+        el.classList.add("past") // add class for styling
       }
     })
-
-    // close after 2nd pick
-    this.calendarTarget.classList.add("d-none")
   }
-}
+
+  updateValue(event) {
+    const date = event.currentTarget.dataset.day
+    const clickedEl = event.currentTarget
+    const today = new Date().toISOString().split("T")[0]
+
+    // prevent selecting past dates
+    if (date < today) {
+      return
+    }
+
+    // clear highlights if 2 dates already selected
+    if (this.datesSelected.length >= 2) {
+      this.datesSelected = []
+      this.checkInValueTarget.textContent = ""
+      this.checkOutValueTarget.textContent = ""
+      this.checkInInputTarget.value = ""
+      this.checkOutInputTarget.value = ""
+
+      // remove all highlights
+      this.calendarTarget.querySelectorAll(".selected-date, .in-range").forEach(el => {
+        el.classList.remove("selected-date", "in-range")
+      })
+    }
+
+    // add new selection
+    this.datesSelected.push(date)
+
+    // always highlight clicked date
+    clickedEl.classList.add("selected-date")
+
+    if (this.datesSelected.length === 1) {
+      this.checkInValueTarget.textContent = date
+      this.checkInInputTarget.value = date
+    } else if (this.datesSelected.length === 2) {
+      this.checkOutValueTarget.textContent = date
+      this.checkOutInputTarget.value = date
+
+      // highlight range between check-in and check-out
+      const [start, end] = this.datesSelected.sort()
+      this.calendarTarget.querySelectorAll("[data-day]").forEach(el => {
+        const d = el.dataset.day
+        if (d > start && d < end) {
+          el.classList.add("in-range")
+        }
+      })
+
+      // close after 2nd pick
+      this.calendarTarget.classList.add("d-none")
+    }
+  }
 
   // --- months navigation ---
   showMonths() {
