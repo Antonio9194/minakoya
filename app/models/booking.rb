@@ -10,6 +10,9 @@ class Booking < ApplicationRecord
 
   validates :payment_status, inclusion: { in: %w[pending paid failed refunded] }
 
+  # Calculate total price before validation (so it's ready for payment)
+  before_validation :calculate_total_price, on: :create
+
   scope :upcoming, -> { where("start_date >= ?", Date.today) }
 
   def start_date_cannot_be_in_the_past
