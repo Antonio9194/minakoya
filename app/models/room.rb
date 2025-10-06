@@ -1,8 +1,6 @@
 class Room < ApplicationRecord
   has_many :bookings
 
-  monetize :price_per_night_cents, with_currency: :jpy
-
   validates :name, presence: true
   validates :description, presence: true
   validates :price_per_night, presence: true, numericality: {

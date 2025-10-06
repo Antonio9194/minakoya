@@ -44,7 +44,7 @@ class PaymentsController < ApplicationController
   private
 
   def set_booking
-    @booking = current_user.bookings.find(params[:id])
+    @booking = current_user.bookings.find(params[:booking_id])
 
     # Redirect if already paid
     if @booking.payment_status == 'paid'
