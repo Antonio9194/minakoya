@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   end
 
   # Bookings with confirmation page
-  resources :bookings, only: [:show] do
+  resources :bookings, only: [:show, :edit, :update] do
     member do
       get 'confirmation'
     end

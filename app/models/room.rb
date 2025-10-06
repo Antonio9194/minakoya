@@ -26,7 +26,7 @@ class Room < ApplicationRecord
   validates :amenities, presence: true
 
   def booked_dates
-    bookings.upcoming.map do |booking|
+    bookings.upcoming.where(status: ["confirmed", "pending"]).map do |booking|
       {
         from: booking.start_date.to_s,
         to: (booking.end_date - 1).to_s
