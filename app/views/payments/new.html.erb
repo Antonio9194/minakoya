@@ -105,15 +105,13 @@
           </div>
           <!-- Cancel Link -->
           <div class="text-center mt-3">
-            <%= link_to room_path(@booking.room), class: "btn btn-link text-muted" do %>
-              <div>
-                <%= simple_form_for [@booking], method: :patch, url: bookings_path(@booking) do |f| %>
-                  <%= f.hidden_field :status, value: "cancelled" %>
-                  <%# <%= f.input :end_date, as: :date, html5: true, input_html: { min: Date.today } %>
-                  <%= f.button :submit, "Cancel and return to room", class: "btn btn-primary w-100 rounded-4" %>
-                <% end %>
-              </div>
-              <%# <i class="fas fa-arrow-left me-1"></i> Cancel and return to room %>
+            <%= link_to cancel_booking_path(@booking),
+              data: {
+                turbo_method: :patch,
+                turbo_confirm: "Cancel this booking?"
+              },
+              class: "btn btn-link text-muted" do %>
+              <i class="fas fa-arrow-left me-1"></i> Cancel and return to room
             <% end %>
           </div>
         </div>

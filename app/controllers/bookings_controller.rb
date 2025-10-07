@@ -47,6 +47,16 @@ class BookingsController < ApplicationController
     end
   end
 
+  def cancel
+    @booking = current_user.bookings.find(params[:id])
+    if @booking.status == 'pending'
+      @booking.update(status: 'cancelled')
+      redirect_to room_path(@booking.room), notice: "Booking cancelled and returned to room page."
+    else
+      redirect_to confirmation_booking_path(@booking), alert: "Only pending bookings can be cancelled."
+    end
+  end
+
   private
 
   def set_room
