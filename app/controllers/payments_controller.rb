@@ -6,6 +6,7 @@ class PaymentsController < ApplicationController
   end
 
   def create
+    begin
     # Create a Stripe PaymentIntent
     payment_intent = Stripe::PaymentIntent.create({
         amount: @booking.total_price_cents,
@@ -39,6 +40,7 @@ class PaymentsController < ApplicationController
     # Handle other Stripe errors
     render json: { error: 'Payment failed. Please try again.' },
            status: :unprocessable_entity
+    end
   end
 
   private
