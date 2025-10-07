@@ -1,9 +1,17 @@
-<div class="d-flex justify-content-center mt-4">
+<div class="contactus">
   <div>
     <% if current_user.present? %>
       <h4> Welcome back <%= current_user.first_name %>!</h4>
     <% else %>
       <h4>Please contact us</h4>
+    <% end %>
+  </div>
+  <div class="contact-form">
+    <%= simple_form_for @contact_message do |f| %>
+      <%= f.input :name, label: "Full Name", input_html: { value: current_user.first_name } %>
+      <%= f.input :email, label: "Your Email", input_html: { value: current_user.email } %>
+      <%= f.input :message, as: :text, label: "Message" %>
+      <%= f.button :submit, "Send" %>
     <% end %>
   </div>
 </div>
