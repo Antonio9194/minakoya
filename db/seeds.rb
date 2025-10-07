@@ -76,7 +76,8 @@ Room.create!(
   price_per_night: 250,
   size: 50,
   single: 2,
-  double: 2,
+  double: 1,
+  wide_double: 1,
   sofa_bed: 1,
   capacity: 8,
   amenities: "WiFi, Air conditioning, TV, Jacuzzi, Balcony, Minibar"

@@ -17,6 +17,7 @@ class Room < ApplicationRecord
   validates :single, presence: true
   validates :semi_double, presence: true
   validates :double, presence: true
+  validates :wide_double, presence: true
   validates :sofa_bed, presence: true
 
   validates :capacity, presence: true, numericality: {
