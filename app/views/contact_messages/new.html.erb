@@ -1,2 +1,9 @@
-<h1>ContactMessages#new</h1>
-<p>Find me in app/views/contact_messages/new.html.erb</p>
+<div class="d-flex justify-content-center mt-4">
+  <div>
+    <% if current_user.present? %>
+      <h4> Welcome back <%= current_user.first_name %>!</h4>
+    <% else %>
+      <h4>Please contact us</h4>
+    <% end %>
+  </div>
+</div>
