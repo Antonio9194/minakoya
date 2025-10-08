@@ -16,20 +16,43 @@ class BookingsController < ApplicationController
       redirect_to room_path(@room), alert: "Please select a date before booking"
       return
     end
-    
+
     dates_range = params[:booking][:start_date].split(" to ")
     @booking = Booking.new(
       start_date: dates_range.first,
       end_date: dates_range.last,
-      total_price: @room.price_per_night * (dates_range.last.to_date - dates_range.first.to_date).to_i,
       user: current_user,
       room: @room
     )
+
     if @booking.save
-      redirect_to guest_path(User.find(@booking.user_id)), notice: "Booking made successfully!"
-      # Should redirect to payment page instead but I have it redirect to guest show page for now.
+      # Redirect to payment page instead of guest page
+      redirect_to new_payment_path(booking_id: @booking.id),
+                  notice: "Booking created! Please complete payment."
     else
-      render "rooms/show", status: :unprocessable_entity, notice: "Failed to make a booking, try again!"
+      redirect_to room_path(@room),
+                  alert: "Failed to make a booking. Please try again!",
+                  status: :unprocessable_entity
+    end
+  end
+
+  def confirmation
+    @booking = current_user.bookings.find(params[:id])
+
+    # Redirect if not paid yet
+    unless @booking.payment_status == 'paid'
+      redirect_to new_payment_path(booking_id: @booking.id),
+                  alert: 'Please complete payment first.'
+    end
+  end
+
+  def cancel
+    @booking = current_user.bookings.find(params[:id])
+    if @booking.status == 'pending'
+      @booking.update(status: 'cancelled')
+      redirect_to room_path(@booking.room), notice: "Booking cancelled and returned to room page."
+    else
+      redirect_to confirmation_booking_path(@booking), alert: "Only pending bookings can be cancelled."
     end
   end
 
@@ -38,5 +61,4 @@ class BookingsController < ApplicationController
   def set_room
     @room = Room.find(params[:room_id])
   end
-
 end

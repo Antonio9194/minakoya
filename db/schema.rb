@@ -23,7 +23,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_07_124525) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_status", default: "pending"
-    t.integer "total_price"
+    t.string "stripe_payment_intent_id"
+    t.integer "total_price_cents"
     t.index ["room_id"], name: "index_bookings_on_room_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
   end

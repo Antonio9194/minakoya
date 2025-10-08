@@ -1,0 +1,121 @@
+<!-- app/views/payments/new.html.erb -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Payment Card -->
+      <div class="card shadow-sm"
+           data-controller="stripe-payment"
+           data-stripe-payment-publishable-key-value="<%= Rails.configuration.stripe[:publishable_key] %>"
+           data-stripe-payment-booking-id-value="<%= @booking.id %>">
+        <!-- Card Header -->
+        <div class="card-header bg-primary text-white">
+          <h3 class="mb-0">
+            <i class="fas fa-credit-card me-2"></i>
+            Complete Your Payment
+          </h3>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body p-4">
+          <!-- Booking Summary Section -->
+          <div class="alert alert-light border">
+            <h5 class="alert-heading mb-3">
+              <i class="fas fa-receipt me-2"></i>
+              Booking Summary
+            </h5>
+            <div class="row mb-2">
+              <div class="col-sm-5 text-muted">Room:</div>
+              <div class="col-sm-7 fw-bold"><%= @booking.room.name %></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-5 text-muted">Check-in:</div>
+              <div class="col-sm-7"><%= @booking.start_date.strftime("%B %d, %Y") %></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-5 text-muted">Check-out:</div>
+              <div class="col-sm-7"><%= @booking.end_date.strftime("%B %d, %Y") %></div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-5 text-muted">Number of nights:</div>
+              <div class="col-sm-7"><%= @booking.number_of_nights %> nights</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-sm-5 text-muted">Price per night:</div>
+              <div class="col-sm-7">¥<%= number_with_delimiter(@booking.room.price_per_night) %></div>
+            </div>
+            <hr class="my-3">
+            <div class="row">
+              <div class="col-sm-5">
+                <h5 class="mb-0">Total Amount:</h5>
+              </div>
+              <div class="col-sm-7">
+                <h5 class="text-primary mb-0">
+                  ¥<%= number_with_delimiter(@booking.total_price_cents) %>
+                </h5>
+              </div>
+            </div>
+          </div>
+          <!-- Payment Form -->
+          <%= simple_form_for :payment,
+                              url: payments_path(booking_id: @booking.id),
+                              html: {
+                                data: {
+                                  stripe_payment_target: "form",
+                                  action: "submit->stripe-payment#handleSubmit"
+                                }
+                              } do |f| %>
+            <!-- Card Element Container -->
+            <div class="mb-4">
+              <%= f.label :card_information, class: "form-label fw-bold" do %>
+                <i class="fas fa-credit-card me-2"></i>Card Information
+              <% end %>
+              <!-- Stripe Elements will mount here -->
+              <div id="card-element"
+                   class="form-control p-3"
+                   data-stripe-payment-target="cardElement"
+                   style="height: 50px;">
+              </div>
+              <!-- Error messages will appear here -->
+              <div class="text-danger mt-2"
+                   data-stripe-payment-target="cardErrors"
+                   role="alert">
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="d-grid mb-3">
+              <%= f.button :button,
+                           type: "submit",
+                           class: "btn btn-primary btn-lg",
+                           data: { stripe_payment_target: "submitButton" } do %>
+                <span data-stripe-payment-target="buttonText">
+                  <i class="fas fa-lock me-2"></i>
+                  Pay ¥<%= number_with_delimiter(@booking.total_price_cents) %>
+                </span>
+                <span class="spinner-border spinner-border-sm ms-2 d-none"
+                      data-stripe-payment-target="spinner">
+                </span>
+              <% end %>
+            </div>
+          <% end %>
+          <!-- Security Message -->
+          <div class="text-center text-muted">
+            <small>
+              <i class="fas fa-shield-alt me-1"></i>
+              Your payment is secure and encrypted with Stripe
+            </small>
+          </div>
+          <!-- Cancel Link -->
+          <div class="text-center mt-3">
+            <%= link_to cancel_booking_path(@booking),
+              data: {
+                turbo_method: :patch,
+                turbo_confirm: "Cancel this booking?"
+              },
+              class: "btn btn-link text-muted" do %>
+              <i class="fas fa-arrow-left me-1"></i> Cancel and return to room
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
