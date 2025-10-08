@@ -13,11 +13,13 @@ class Room < ApplicationRecord
     greater_than: 0,
     message: "must be more than 0"
   }
-  validates :beds, presence: true, numericality: {
-    only_integer: true,
-    greater_than: 0,
-    message: "must be more than 0"
-  }
+  validates :bunk, presence: true
+  validates :single, presence: true
+  validates :semi_double, presence: true
+  validates :double, presence: true
+  validates :wide_double, presence: true
+  validates :sofa_bed, presence: true
+
   validates :capacity, presence: true, numericality: {
     only_integer: true,
     greater_than: 0,

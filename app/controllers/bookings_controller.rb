@@ -10,7 +10,6 @@ class BookingsController < ApplicationController
   def create
     unless current_user
       redirect_to new_user_session_path, alert: "You must be signed in to make a booking!"
-      return
     end
 
     if params[:booking][:start_date].blank?
