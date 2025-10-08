@@ -39,27 +39,47 @@ end
 
 puts "Created #{User.count} users"
 
-# Create 13 standard rooms
-13.times do |i|
+# Create 6 type A rooms
+6.times do |i|
   Room.create!(
-    name: "Room #{i + 1}",
-    description: "A cozy room with all the basics you need.",
+    name: "Room A-#{i + 1}",
+    description: "A bunk bed, a double bed and a sofa bed, all inside one room.",
     price_per_night: 80,
     size: 20,
-    beds: 1,
-    capacity: 2,
+    bunk: 1,
+    double: 1,
+    sofa_bed: 1,
+    capacity: 6,
     amenities: "WiFi, Air conditioning, TV, Bathroom"
   )
 end
 
-# Add 1 suite
+# Create 7 type B rooms
+7.times do |i|
+  Room.create!(
+    name: "Room B-#{i + 1}",
+    description: "A cozy room with all the basics you need.",
+    price_per_night: 80,
+    size: 20,
+    bunk: 1,
+    semi_double: 1,
+    sofa_bed: 1,
+    capacity: 6,
+    amenities: "WiFi, Air conditioning, TV, Bathroom"
+  )
+end
+
+# Create 1 type C rooms
 Room.create!(
   name: "Presidential Suite",
   description: "Luxury suite with panoramic view, jacuzzi, and extra comfort.",
   price_per_night: 250,
   size: 50,
-  beds: 2,
-  capacity: 4,
+  single: 2,
+  double: 1,
+  wide_double: 1,
+  sofa_bed: 1,
+  capacity: 8,
   amenities: "WiFi, Air conditioning, TV, Jacuzzi, Balcony, Minibar"
 )
 
