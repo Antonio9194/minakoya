@@ -6,7 +6,18 @@ Rails.application.routes.draw do
     resources :bookings, only: [:new, :create]
   end
 
-  #Guests' booking
+  # Bookings with confirmation page
+  resources :bookings, only: [:show] do
+    member do
+      get 'confirmation'
+      patch 'cancel'
+    end
+  end
+
+  # Payments
+  resources :payments, only: [:new, :create]
+
+  # 'Guests' booking
   resources :guests, only: [:show] do
     resources :bookings, only: [:index, :show]
   end
