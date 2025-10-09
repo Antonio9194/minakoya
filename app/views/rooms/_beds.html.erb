@@ -1,0 +1,64 @@
+<% if room.room_type == "A" %>
+  <div class="row mb-3">
+    <div class="col-6 d-flex justify-content-start align-items-center pe-0">
+      <%= image_tag("bunk-bed.png", class: "me-2",
+                            style: "width: 20px;", alt: "Bunk bed icon") %>
+      <p class="mb-0"><%= room.bunk %> <%= room.bunk == 1 ? "bunk bed" : "bunk bed".pluralize%></p>
+    </div>
+    <div class="col-6 d-flex justify-content-center align-items-center px-0">
+      <%= image_tag("double-bed.png", class: "me-2",
+                              style: "width: 20px;", alt: "Double bed icon") %>
+      <p class="mb-0"><%= room.double %> <%= room.double == 1 ? "double bed" : "double bed".pluralize%></p>
+    </div>
+  </div>
+<% elsif room.room_type == "B" %>
+  <div class="row mb-3">
+    <div class="col-5 d-flex justify-content-start align-items-center pe-0">
+      <%= image_tag("bunk-bed.png", class: "me-2",
+                            style: "width: 20px;", alt: "Bunk bed icon") %>
+      <p class="mb-0"><%= room.bunk %> <%= room.bunk == 1 ? "bunk bed" : "bunk bed".pluralize%></p>
+    </div>
+    <div class="col-7 d-flex justify-content-center align-items-center px-0">
+      <%= image_tag("semi-double.png", class: "me-2",
+                              style: "width: 20px;", alt: "Semi-double bed icon") %>
+      <p class="mb-0"><%= room.semi_double %> <%= room.semi_double == 1 ? "semi double bed" : "semi double bed".pluralize%></p>
+    </div>
+  </div>
+<% else%>
+  <div class="row mb-3">
+    <div class="col-6 d-flex justify-content-start align-items-center pe-0">
+      <%= image_tag("money.png", class: "me-2",
+                            style: "width: 20px;", alt: "Price icon") %>
+      <p class="mb-0">¥<%=  number_with_delimiter(room.price_per_night) %></p>
+    </div>
+    <div class="col-6 d-flex justify-content-start align-items-center px-0">
+      <%= image_tag("capacity.png", class: "me-2",
+                              style: "width: 20px;", alt: "Capacity icon") %>
+      <p class="mb-0"><%= room.capacity %> guests</p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6 d-flex justify-content-start align-items-center pe-0">
+      <%= image_tag("sofa-bed.png", class: "me-2",
+                            style: "width: 20px;", alt: "Sofa bed icon") %>
+      <p class="mb-0"><%= room.sofa_bed %> <%= room.sofa_bed == 1 ? "sofa bed" : "sofa bed".pluralize%></p>
+    </div>
+    <div class="col-6 d-flex justify-content-start align-items-center px-0">
+      <%= image_tag("single-bed.png", class: "me-2",
+                            style: "width: 20px;", alt: "Single bed icon") %>
+      <p class="mb-0"><%= room.single %> <%= room.single == 1 ? "single bed" : "single bed".pluralize%></p>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-6 d-flex justify-content-start align-items-center pe-0">
+      <%= image_tag("double-bed.png", class: "me-2",
+                              style: "width: 20px;", alt: "Double bed icon") %>
+      <p class="mb-0"><%= room.double %> <%= room.double == 1 ? "double bed" : "double bed".pluralize%></p>
+    </div>
+    <div class="col-6 d-flex justify-content-start align-items-center px-0">
+      <%= image_tag("wide-double.png", class: "me-2",
+                              style: "width: 20px;", alt: "Wide double bed icon") %>
+      <p class="mb-0"><%= room.wide_double %> <%= room.wide_double == 1 ? "wide double bed" : "wide double bed".pluralize%></p>
+    </div>
+  </div>
+<% end %>

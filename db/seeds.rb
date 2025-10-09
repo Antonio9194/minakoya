@@ -43,6 +43,7 @@ puts "Created #{User.count} users"
 6.times do |i|
   Room.create!(
     name: "Room A-#{i + 1}",
+    room_type: "A",
     description: "A bunk bed, a double bed and a sofa bed, all inside one room.",
     price_per_night: 80,
     size: 20,
@@ -58,6 +59,7 @@ end
 7.times do |i|
   Room.create!(
     name: "Room B-#{i + 1}",
+    room_type: "B",
     description: "A cozy room with all the basics you need.",
     price_per_night: 80,
     size: 20,
@@ -72,6 +74,7 @@ end
 # Create 1 type C rooms
 Room.create!(
   name: "Presidential Suite",
+  room_type: "C",
   description: "Luxury suite with panoramic view, jacuzzi, and extra comfort.",
   price_per_night: 250,
   size: 50,
