@@ -25,15 +25,19 @@
           <h1 class="card-title"><%= @room.name %></h1>
           <p class="card-text text-muted"><%= @room.description %></p>
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
               <h5 class="text-primary">¥<%= number_with_delimiter(@room.price_per_night) %></h5>
               <small class="text-muted">per night</small>
             </div>
-            <div class="col-md-6">
-              <p class="mb-1"><strong>Size:</strong> <%= @room.size %> sq ft</p>
-              <p class="mb-1"><strong>Beds:</strong> <%= @room.beds %></p>
+            <div class="col-md-4">
+              <p class="mb-1"><strong>Size:</strong> <%= @room.size %> m²</p>
               <p class="mb-0"><strong>Capacity:</strong> <%= @room.capacity %> guests</p>
             </div>
+            <!--Render beds depending on bed types-->
+            <div class="col-md-4">
+              <%= render "rooms/beds_showpage", room: @room %>
+            </div>
+            <!---->
           </div>
         </div>
       </div>

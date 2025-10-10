@@ -2,6 +2,7 @@ class Room < ApplicationRecord
   has_many :bookings
 
   validates :name, presence: true
+  validates :room_type, presence: true
   validates :description, presence: true
   validates :price_per_night, presence: true, numericality: {
     only_integer: true,
