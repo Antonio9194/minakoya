@@ -10,6 +10,7 @@ class ContactMessagesController < ApplicationController
 
 
     if @contact_message.save 
+      ContactMailer.new_message(@contact_message).deliver_now
       if current_user.present?
         redirect_to guest_path(current_user), notice: "Message sent successfully!"
       else
