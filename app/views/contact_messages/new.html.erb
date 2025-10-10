@@ -1,2 +1,17 @@
-<h1>ContactMessages#new</h1>
-<p>Find me in app/views/contact_messages/new.html.erb</p>
+<div class="contactus">
+  <div>
+    <% if current_user.present? %>
+      <h4> Welcome back <%= current_user.first_name %>!</h4>
+    <% else %>
+      
+    <% end %>
+  </div>
+  <div class="contact-form">
+    <%= simple_form_for @contact_message do |f| %>
+      <%= f.input :name, label: "Full Name", input_html: { value: current_user&.first_name } %>
+      <%= f.input :email, label: "Email", input_html: { value: current_user&.email } %>
+      <%= f.input :message, as: :text, label: "Message" %>
+      <%= f.button :submit, "Send" %>
+    <% end %>
+  </div>
+</div>
