@@ -7,6 +7,11 @@ class ContactMessagesController < ApplicationController
 
   def create
     @contact_message = ContactMessage.new(contact_message_params)
+    
+    if current_user.present?
+      @contact_message.user_id = current_user.id
+    end
+
 
 
     if @contact_message.save 
