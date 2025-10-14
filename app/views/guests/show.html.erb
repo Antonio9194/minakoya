@@ -1,27 +1,41 @@
 <div style="display: flex; flex-direction: column; justify-content: center; align-items:center">
   <!-- User Card -->
-  <div class="card shadow my-4 p-3 rounded-5 d-flex flex-column justify-content-center align-items-center" style="width: 220px; height: 100px;">
-    <h6><%= current_user.first_name%></h6>
-    <p class="text-muted mb-0">Joined in <%= current_user.created_at.strftime("%B-%Y") %></p>
+  <div class="col-4">
+    <div class="card shadow my-4 p-3 rounded-5 d-flex flex-column justify-content-center align-items-center">
+      <h6><%= current_user.first_name%></h6>
+      <p class="text-muted mb-0">Joined in <%= current_user.created_at.strftime("%B, %Y") %></p>
+    </div>
   </div>
   <!-- Bookings -->
-  <div>
-    <% if current_user.bookings.present? %>
-      <% current_user.bookings.each do |booking|%>
-        <%= booking.room_id%>
-        <%= booking.start_date%>
-        <%= booking.end_date%>
+  <div class="container">
+    <div class="row">
+      <% if current_user.bookings.present? %>
+        <% current_user.bookings.each do |booking| %>
+          <div class="col-12 col-md-6 col-lg-4 my-2">
+            <div class="card d-flex flex-column p-5 h-100 rounded-5 shadow justify-content-center align-items-center">
+              <h6 class="mb-2"><%= booking.room.name %></h6>
+              <p class="mb-1">From: <%= booking.start_date.strftime("%d %B, %Y") %></p>
+              <p class="mb-1">To: <%= booking.end_date.strftime("%d %B, %Y") %></p>
+              <p class="mb-1">Status: <%= booking.status %></p>
+              <p class="mb-0">Payment: <%= booking.payment_status %></p>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <p>No bookings yet...</p>
       <% end %>
-    <% else %>
-      <p>No bookings yet...</p>  
-    <% end %>
+    </div>
   </div>
   <!-- Messages-->
   <div>
-    <% current_user.contact_messages.each do |message| %>
-      <div>
-        <%= message.message%>
-      </div>
+    <% if current_user.contact_messages.any? %>
+      <% current_user.contact_messages.each do |message| %>
+        <div>
+          <%= message.message%>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No messages yet ...</p>
     <% end %>
   </div>
 </div>
