@@ -1,41 +1,81 @@
-<div style="display: flex; flex-direction: column; justify-content: center; align-items:center">
-  <!-- User Card -->
-  <div class="col-4">
-    <div class="card shadow my-4 p-3 rounded-5 d-flex flex-column justify-content-center align-items-center">
-      <h6><%= current_user.first_name%></h6>
-      <p class="text-muted mb-0">Joined in <%= current_user.created_at.strftime("%B, %Y") %></p>
+<div class="container my-5">
+  <div class="row g-4">
+    <!-- Messages  -->
+    <div class="col-md-4">
+      <div class="card shadow-sm rounded-4 h-100">
+        <div class="card-body p-4">
+          <h5 class="card-title mb-4">Messages</h5>
+          <% if current_user.contact_messages.any? %>
+            <div class="messages-list">
+              <% current_user.contact_messages.each do |message| %>
+                <div class="card mb-3 border-0 bg-light rounded-3">
+                  <div class="card-body p-3">
+                    <p class="mb-0"><%= message.message %></p>
+                    <small class="text-muted"><%= message.created_at.strftime("%d %b, %Y") %></small>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="text-muted text-center py-4">No messages yet...</p>
+          <% end %>
+        </div>
+      </div>
     </div>
-  </div>
-  <!-- Bookings -->
-  <div class="container">
-    <div class="row">
-      <% if current_user.bookings.present? %>
-        <% current_user.bookings.each do |booking| %>
-          <div class="col-12 col-md-6 col-lg-4 my-2">
-            <div class="card d-flex flex-column p-5 h-100 rounded-5 shadow justify-content-center align-items-center">
-              <h6 class="mb-2"><%= booking.room.name %></h6>
-              <p class="mb-1">From: <%= booking.start_date.strftime("%d %B, %Y") %></p>
-              <p class="mb-1">To: <%= booking.end_date.strftime("%d %B, %Y") %></p>
-              <p class="mb-1">Status: <%= booking.status %></p>
-              <p class="mb-0">Payment: <%= booking.payment_status %></p>
+    <!-- User Card + Bookings -->
+    <div class="col-md-8">
+      <!-- User Card -->
+      <div class="card shadow-sm rounded-4 text-center mb-4">
+        <div class="card-body p-5">
+          <div class="mb-3">
+            <div class="rounded-circle bg-primary bg-opacity-10 d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+              <h2 class="text-primary mb-0"><%= current_user.first_name.first.upcase %></h2>
+            </div>
+          </div>
+          <h4 class="mb-2"><%= current_user.first_name %></h4>
+          <p class="text-muted mb-0">Member since</p>
+          <p class="text-muted"><%= current_user.created_at.strftime("%B %Y") %></p>
+        </div>
+      </div>
+      <!-- Bookings Section -->
+      <div>
+        <h5 class="mb-4">Your Bookings</h5>
+        <% if current_user.bookings.present? %>
+          <div class="row g-4">
+            <% current_user.bookings.each do |booking| %>
+              <div class="col-12 col-lg-6">
+                <div class="card shadow-sm rounded-4 h-100">
+                  <div class="card-body p-4">
+                    <h6 class="card-title mb-3"><%= booking.room.name %></h6>
+                    <div class="mb-2">
+                      <small class="text-muted d-block">Check-in</small>
+                      <strong><%= booking.start_date.strftime("%d %b, %Y") %></strong>
+                    </div>
+                    <div class="mb-3">
+                      <small class="text-muted d-block">Check-out</small>
+                      <strong><%= booking.end_date.strftime("%d %b, %Y") %></strong>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="badge bg-<%= booking.status == 'confirmed' ? 'success' : 'warning' %> rounded-pill">
+                        <%= booking.status.capitalize %>
+                      </span>
+                      <span class="badge bg-<%= booking.payment_status == 'paid' ? 'success' : 'secondary' %> rounded-pill">
+                        <%= booking.payment_status.capitalize %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <div class="card shadow-sm rounded-4">
+            <div class="card-body p-5 text-center">
+              <p class="text-muted mb-0">No bookings yet...</p>
             </div>
           </div>
         <% end %>
-      <% else %>
-        <p>No bookings yet...</p>
-      <% end %>
+      </div>
     </div>
-  </div>
-  <!-- Messages-->
-  <div>
-    <% if current_user.contact_messages.any? %>
-      <% current_user.contact_messages.each do |message| %>
-        <div>
-          <%= message.message%>
-        </div>
-      <% end %>
-    <% else %>
-      <p>No messages yet ...</p>
-    <% end %>
   </div>
 </div>
