@@ -3,7 +3,7 @@
 <% if room_c.present? && other_rooms.any?%>
   <!--Show room C first-->
   <div class="my-3">
-    <h5 class="badge rounded-pill bg-success fs-4 my-3">This room fits 7 people perfectly!</h5>
+    <h5 class="badge rounded-pill bg-success fs-4 my-3">This room fits your group perfectly!</h5>
     <%= render "rooms/room_c", room_c: room_c %>
   </div>
   <!--Show other rooms-->
@@ -14,7 +14,7 @@
 <% end %>
 <% if room_c.present? && other_rooms.empty? %>
   <!--Show room C only-->
-  <h5 class="badge rounded-pill bg-success fs-4 my-3">This room fits 7 people perfectly!</h5>
+  <h5 class="badge rounded-pill bg-success fs-4 my-3">This room fits your group perfectly!</h5>
   <%= render "rooms/room_c", room_c: room_c %>
 <% end %>
 <% if room_c.nil? && other_rooms.count > 1 %>
